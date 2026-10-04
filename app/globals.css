@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --color-ink: rgb(var(--ink));
+  --color-panel: rgb(var(--panel));
+  --color-mute: rgb(var(--mute));
+  --color-fg: rgb(var(--fg));
+  --color-soft: var(--soft);
+  --color-soft2: var(--soft2);
+  --color-accent: var(--accent);
+  --color-brand: #f6c445;
+  --color-live: #ff4d5e;
+}
+:root{--ink:7 8 12;--panel:15 17 23;--mute:144 151 168;--fg:244 244 245;--dot:255 255 255;--soft:rgb(255 255 255/.05);--soft2:rgb(255 255 255/.1);--accent:#f6c445;color-scheme:dark}
+[data-theme=light]{--ink:246 247 251;--panel:255 255 255;--mute:96 103 120;--fg:15 18 28;--dot:15 20 40;--soft:rgb(15 20 40/.05);--soft2:rgb(15 20 40/.08);--accent:#a16207;color-scheme:light}
+
+html{scroll-behavior:smooth;scroll-padding-top:5rem;background:rgb(var(--ink))}
+body{@apply bg-ink text-fg font-sans antialiased overflow-x-hidden;transition:background-color .3s,color .3s}
+:focus-visible{outline:2px solid #f6c445;outline-offset:3px}
+
+.glass{background:linear-gradient(180deg,rgb(var(--dot)/.05),rgb(var(--dot)/.015));border:1px solid rgb(var(--dot)/.09);backdrop-filter:blur(14px)}
+[data-theme=light] .glass{background:rgba(255,255,255,.72);box-shadow:0 1px 2px rgba(15,20,40,.05),0 8px 30px -12px rgba(15,20,40,.12)}
+.grad{background:linear-gradient(180deg,rgb(var(--fg)) 30%,rgb(var(--mute)));-webkit-background-clip:text;background-clip:text;color:transparent}
+.grid-bg{background-image:radial-gradient(rgb(var(--dot)/.1) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 70% 60% at 50% 30%,#000,transparent)}
+.spot{position:relative;overflow:hidden}
+.spot::before{content:"";position:absolute;inset:0;background:radial-gradient(360px circle at var(--x,50%) var(--y,0%),rgba(246,196,69,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.spot:hover::before{opacity:1}
+.mark{font-size:clamp(5.5rem,27vw,26rem);font-weight:700;line-height:.82;letter-spacing:-.065em;text-align:center;white-space:nowrap;padding-bottom:.08em;background:linear-gradient(180deg,rgb(var(--fg)/.92) 0%,rgb(var(--fg)/.5) 45%,rgb(var(--fg)/0) 92%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none}
+
+/* ---- looping bento animations ---- */
+@keyframes float{50%{transform:translateY(-8px)}} .float{animation:float 6s ease-in-out infinite}
+@keyframes eq{50%{transform:scaleY(.35)}} .bar{transform-origin:bottom;animation:eq 1.2s ease-in-out infinite}
+@keyframes drift{to{transform:translate(26px,-14px) scale(1.25)}}
+@keyframes orbc{0%,100%{background:rgba(246,196,69,.75)}33%{background:rgba(251,113,133,.65)}66%{background:rgba(96,165,250,.6)}}
+.orb{position:absolute;border-radius:50%;filter:blur(16px);animation:drift 7s ease-in-out infinite alternate,orbc 9s linear infinite}
+@keyframes lt{0%,10%{transform:translateY(26px);opacity:0}22%,80%{transform:none;opacity:1}92%,100%{transform:translateY(26px);opacity:0}} .lt{animation:lt 7s ease-in-out infinite}
+@keyframes glowp{50%{box-shadow:0 0 44px -6px rgba(246,196,69,.55)}} .glowp{animation:glowp 3s ease-in-out infinite}
+@keyframes slidep2{0%,12%{opacity:0;transform:translateX(-34px) scale(.92)}30%,82%{opacity:1;transform:none}100%{opacity:0;transform:translateX(-34px) scale(.92)}} .slidep2{animation:slidep2 7s cubic-bezier(.22,1,.36,1) infinite}
+@keyframes pa{0%,30%{background:rgba(246,196,69,.18);box-shadow:inset 0 0 0 1px rgba(246,196,69,.55)}34%,100%{background:transparent;box-shadow:none}} .pa{animation:pa 9s linear infinite}
+@keyframes fan{0%,100%{transform:rotateX(58deg) rotateZ(-38deg) translateZ(0)}50%{transform:rotateX(58deg) rotateZ(-38deg) translateZ(var(--z))}}
+.lay{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:14px;animation:fan 3.6s ease-in-out infinite}
+@keyframes ringp{0%,100%{stroke-dashoffset:146}50%{stroke-dashoffset:136}} .ringp{animation:ringp 3s ease-in-out infinite}
+@keyframes load{0%,100%{transform:scaleX(.82)}50%{transform:scaleX(1)}} .load{transform-origin:left;animation:load 2.4s ease-in-out infinite}
+@keyframes segf{0%{background:rgb(var(--dot)/.1);box-shadow:none}8%,88%{background:#34d399;box-shadow:0 0 14px -2px #34d399}100%{background:rgb(var(--dot)/.1);box-shadow:none}}
+.seg{height:2rem;flex:1;border-radius:7px;background:rgb(var(--dot)/.1)} .seg.f{animation:segf 9s infinite}
+@keyframes shk{0%,44%{transform:none}46%{transform:translateX(-5px)}48%{transform:translateX(5px)}50%{transform:translateX(-3px)}52%,100%{transform:none}}
+@keyframes fl2{0%,44%{opacity:0}46%{opacity:1}54%,100%{opacity:0}}
+@keyframes l1{0%,38%{opacity:1}44%,100%{opacity:0}}
+@keyframes l2{0%,42%{opacity:0}46%,58%{opacity:1}64%,100%{opacity:0}}
+@keyframes l3{0%,60%{opacity:0}68%,92%{opacity:1}100%{opacity:0}}
+.lb{position:absolute;left:0;top:3.5rem;font-size:.75rem;opacity:0}
+@keyframes film{to{transform:translateX(-50%)}} .film{display:flex;width:max-content;animation:film 9s linear infinite}
+.frame{width:46px;height:32px;margin-right:6px;border-radius:6px;flex:none}
+@keyframes s1{0%{transform:scaleX(0)}30%,94%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes s2{0%,33%{transform:scaleX(0)}63%,94%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes s3{0%,66%{transform:scaleX(0)}96%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+.chip{position:absolute;top:0;height:2.6rem;width:calc(33.33% - 4px);transform-origin:left;border-radius:8px;background:linear-gradient(90deg,rgba(246,196,69,.55),rgba(251,146,60,.45));font-size:10px;padding:4px 8px;color:#fff;white-space:nowrap;overflow:hidden}
+@keyframes flow{to{stroke-dashoffset:-24}} .flow{stroke-dasharray:3 9;animation:flow 1s linear infinite}
+@keyframes pinb{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg) translateY(-2px)}} .pin{display:inline-block;animation:pinb 2.4s ease-in-out infinite}
+@keyframes psplit{0%,100%{width:58%}50%{width:46%}} .psplit{animation:psplit 6s ease-in-out infinite}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-80px) scale(1.2);opacity:0}}
+.emo{position:absolute;bottom:.75rem;font-size:18px;opacity:0;animation:rise 3.3s ease-out infinite}
+@keyframes dash{0%{stroke-dashoffset:1}60%,100%{stroke-dashoffset:0}} .spark{stroke-dasharray:1;animation:dash 4s ease-in-out infinite}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
