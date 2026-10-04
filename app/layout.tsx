@@ -9,12 +9,23 @@ export const metadata: Metadata = {
   description: "A native Mac studio for live streaming and recording.",
 };
 
-const init = `(function(){var s;try{s=localStorage.getItem("vidyst-theme")}catch(e){}document.documentElement.dataset.theme=s||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")})()`;
+const init = `(function(){var s;try{s=localStorage.getItem("vidyst-theme")}catch(e){}document.documentElement.dataset.theme=s==="light"?"light":"dark"})()`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning className={geist.variable}>
-      <head><script dangerouslySetInnerHTML={{ __html: init }} /></head>
+    <html
+      lang="en"
+      data-theme="dark"
+      suppressHydrationWarning
+      className={geist.variable}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: init }} />
+      </head>
       <body>{children}</body>
     </html>
   );
