@@ -2,6 +2,9 @@
 
 Next.js 15 · React 19 · Tailwind CSS v4 · Motion
 
+<img width="1917" height="876" alt="image" src="https://github.com/user-attachments/assets/5b7e72ad-7bed-45b3-935b-4eac9354ed89" />
+
+
 ```bash
 npm install
 npm run dev      # http://localhost:3000
